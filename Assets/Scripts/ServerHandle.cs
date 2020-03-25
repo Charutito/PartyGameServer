@@ -19,14 +19,13 @@ public class ServerHandle
 
     public static void PlayerMovement(int _fromClient, Packet _packet)
     {
-        bool[] _inputs = new bool[_packet.ReadInt()];
+        float[] _inputs = new float[_packet.ReadInt()];
         for (int i = 0; i < _inputs.Length; i++)
         {
-            _inputs[i] = _packet.ReadBool();
+            _inputs[i] = _packet.ReadFloat();
         }
-        Quaternion _rotation = _packet.ReadQuaternion();
 
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        Server.clients[_fromClient].player.SetInput(_inputs);
     }
 
     public static void PlayerShoot(int _fromClient, Packet _packet)

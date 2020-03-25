@@ -1,30 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public int id;
     public string username;
-    public CharacterController controller;
     public Transform shootOrigin;
-    public float gravity = -9.81f;
     public float moveSpeed = 5f;
-    public float jumpSpeed = 5f;
     public float health;
     public float maxHealth = 100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
 
-    private bool[] inputs;
-    private float yVelocity = 0;
-
-    private void Start()
-    {
-        gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
-        moveSpeed *= Time.fixedDeltaTime;
-        jumpSpeed *= Time.fixedDeltaTime;
-    }
+    private float[] inputs;
 
     public void Initialize(int _id, string _username)
     {
@@ -32,7 +20,7 @@ public class Player : MonoBehaviour
         username = _username;
         health = maxHealth;
 
-        inputs = new bool[5];
+        inputs = new float[2];
     }
 
     /// <summary>Processes player input and moves the player.</summary>
@@ -43,58 +31,25 @@ public class Player : MonoBehaviour
             return;
         }
 
-        Vector2 _inputDirection = Vector2.zero;
-        if (inputs[0])
-        {
-            _inputDirection.y += 1;
-        }
-        if (inputs[1])
-        {
-            _inputDirection.y -= 1;
-        }
-        if (inputs[2])
-        {
-            _inputDirection.x -= 1;
-        }
-        if (inputs[3])
-        {
-            _inputDirection.x += 1;
-        }
-
-        Move(_inputDirection);
+        MoveTransform(inputs[0], inputs[1]);
     }
 
     /// <summary>Calculates the player's desired movement direction and moves him.</summary>
-    /// <param name="_inputDirection"></param>
-    private void Move(Vector2 _inputDirection)
+    /// <param name="x"></param>
+    /// <param name="z"></param>
+    public void MoveTransform(float x, float z)
     {
-        Vector3 _moveDirection = transform.right * _inputDirection.x + transform.forward * _inputDirection.y;
-        _moveDirection *= moveSpeed;
-
-        if (controller.isGrounded)
-        {
-            yVelocity = 0f;
-            if (inputs[4])
-            {
-                yVelocity = jumpSpeed;
-            }
-        }
-        yVelocity += gravity;
-
-        _moveDirection.y = yVelocity;
-        controller.Move(_moveDirection);
+        var newPosition = transform.position + (new Vector3(x, 0, z) * moveSpeed * Time.deltaTime);
+        transform.position = newPosition;
 
         ServerSend.PlayerPosition(this);
-        ServerSend.PlayerRotation(this);
     }
 
     /// <summary>Updates the player input with newly received input.</summary>
     /// <param name="_inputs">The new key inputs.</param>
-    /// <param name="_rotation">The new rotation.</param>
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    public void SetInput(float[] _inputs)
     {
         inputs = _inputs;
-        transform.rotation = _rotation;
     }
 
     public void Shoot(Vector3 _viewDirection)
@@ -119,7 +74,6 @@ public class Player : MonoBehaviour
         if (health <= 0f)
         {
             health = 0f;
-            controller.enabled = false;
             transform.position = new Vector3(0f, 25f, 0f);
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
@@ -133,7 +87,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5f);
 
         health = maxHealth;
-        controller.enabled = true;
         ServerSend.PlayerRespawned(this);
     }
 
