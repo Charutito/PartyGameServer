@@ -26,7 +26,8 @@ public class Server
         Debug.Log("Starting server...");
         InitializeServerData();
 
-        tcpListener = new TcpListener(IPAddress.Any, Port);
+        IPAddress myIp = IPAddress.Parse("25.86.110.242");
+        tcpListener = new TcpListener(myIp, Port);
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
 

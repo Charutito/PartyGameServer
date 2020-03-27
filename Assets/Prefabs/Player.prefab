@@ -127,13 +127,17 @@ MonoBehaviour:
   id: 0
   username: 
   shootOrigin: {fileID: 4375789778787327676}
-  gravity: -19.62
   moveSpeed: 5
-  jumpSpeed: 9
   health: 0
   maxHealth: 100
   itemAmount: 0
   maxItemAmount: 3
+  respawnTime: 5
+  respawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5842331344950954625
 GameObject:
   m_ObjectHideFlags: 0
