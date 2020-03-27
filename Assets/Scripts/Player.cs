@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public float maxHealth = 100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
+    public float respawnTime = 5f;
+
 
     private float[] inputs;
 
@@ -73,19 +75,27 @@ public class Player : MonoBehaviour
         health -= _damage;
         if (health <= 0f)
         {
-            health = 0f;
-            transform.position = new Vector3(0f, 25f, 0f);
-            ServerSend.PlayerPosition(this);
-            StartCoroutine(Respawn());
+            Die();
         }
 
         ServerSend.PlayerHealth(this);
     }
 
-    private IEnumerator Respawn()
+    private void Die()
     {
-        yield return new WaitForSeconds(5f);
+        health = 0f;
+        //TODO dead animation
+        int randomIndex = Random.Range(0, GameManager.Instance.respawnPoints.Length);
+        transform.position = GameManager.Instance.respawnPoints[randomIndex].transform.position;
+        ServerSend.PlayerPosition(this);
+        StartCoroutine(Respawn(respawnTime));
+    }
 
+    private IEnumerator Respawn(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Debug.Log("Player " + id + " is respawning...");
         health = maxHealth;
         ServerSend.PlayerRespawned(this);
     }
