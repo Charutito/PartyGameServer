@@ -97,7 +97,6 @@ public class ServerSend
             _packet.Write(_player.id);
             _packet.Write(_player.username);
             _packet.Write(_player.transform.position);
-            _packet.Write(_player.transform.rotation);
 
             SendTCPData(_toClient, _packet);
         }
@@ -123,7 +122,6 @@ public class ServerSend
         using (Packet _packet = new Packet((int)ServerPackets.playerRotation))
         {
             _packet.Write(_player.id);
-            _packet.Write(_player.transform.rotation);
 
             SendUDPDataToAll(_player.id, _packet);
         }
