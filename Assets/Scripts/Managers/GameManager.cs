@@ -6,6 +6,6 @@ using ServerUtils;
 public class GameManager : SingletonObject<GameManager>
 {
     public Transform[] respawnPoints;
-
+    public int mapArenaTotalQty;
     
 }

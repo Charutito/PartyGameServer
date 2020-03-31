@@ -87,6 +87,20 @@ public class ServerSend
         }
     }
 
+    /// <summary>Sends a welcome message to the given client.</summary>
+    /// <param name="_toClient">The client to send the packet to.</param>
+    /// <param name="_mapNumber">The message to send.</param>
+    public static void LoadArena(int _toClient, int _mapNumber)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.loadArena))
+        {
+            _packet.Write(_mapNumber);
+            _packet.Write(_toClient);
+
+            SendTCPData(_toClient, _packet);
+        }
+    }
+
     /// <summary>Tells a client to spawn a player.</summary>
     /// <param name="_toClient">The client that should spawn the player.</param>
     /// <param name="_player">The player to spawn.</param>

@@ -242,6 +242,11 @@ public class Client
         }
     }
 
+    public void SendMapArenaToClient()
+    {
+        ServerSend.LoadArena(id, Server.MapArenaNumber);
+    }
+
     /// <summary>Disconnects the client and stops all network traffic.</summary>
     private void Disconnect()
     {

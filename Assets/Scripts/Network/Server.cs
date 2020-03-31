@@ -11,6 +11,7 @@ public class Server
     public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
     public delegate void PacketHandler(int _fromClient, Packet _packet);
     public static Dictionary<int, PacketHandler> packetHandlers;
+    public static int MapArenaNumber { get; private set; }
 
     private static TcpListener tcpListener;
     private static UdpClient udpListener;
@@ -22,6 +23,8 @@ public class Server
     {
         MaxPlayers = _maxPlayers;
         Port = _port;
+
+        MapArenaNumber = UnityEngine.Random.Range(0, GameManager.Instance.mapArenaTotalQty);
 
         Debug.Log("Starting server...");
         InitializeServerData();

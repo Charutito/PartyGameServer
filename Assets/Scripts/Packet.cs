@@ -6,6 +6,7 @@ using UnityEngine;
 public enum ServerPackets
 {
     welcome = 1,
+    loadArena,
     spawnPlayer,
     playerPosition,
     playerRotation,
