@@ -2179,6 +2179,7 @@ MonoBehaviour:
   - {fileID: 1736614747}
   - {fileID: 798071713}
   - {fileID: 209181059}
+  mapArenaTotalQty: 1
 --- !u!4 &1115827248
 Transform:
   m_ObjectHideFlags: 0
