@@ -6,13 +6,24 @@ public class Player : MonoBehaviour
     public int id;
     public string username;
     public Transform shootOrigin;
-    public float moveSpeed = 5f;
     public float health;
     public float maxHealth = 100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
     public float respawnTime = 5f;
+    public float MovementSpeed = 6f;
 
+    [SerializeField]
+    private Rigidbody rigidBody;
+    private Vector3 Velocity;
+    private Vector3 VelocityLastFrame;
+    private Vector3 AccelerationVector;
+    private float Acceleration { get; set; }
+    private float Deceleration { get; set; }
+    private Vector3 normalizedInput;
+    private Vector3 lerpedInput;
+    private float acceleration;
+    private float movementSpeed;
 
     private float[] inputs;
 
@@ -23,6 +34,9 @@ public class Player : MonoBehaviour
         health = maxHealth;
 
         inputs = new float[2];
+
+        Acceleration = 10f;
+        Deceleration = 10f;
     }
 
     /// <summary>Processes player input and moves the player.</summary>
@@ -33,6 +47,9 @@ public class Player : MonoBehaviour
             return;
         }
 
+        Velocity = rigidBody.velocity;
+        AccelerationVector = (rigidBody.velocity - VelocityLastFrame) / Time.fixedDeltaTime;
+
         MoveTransform(inputs[0], inputs[1]);
     }
 
@@ -41,8 +58,47 @@ public class Player : MonoBehaviour
     /// <param name="z"></param>
     public void MoveTransform(float x, float z)
     {
-        var newPosition = transform.position + (new Vector3(x, 0, z) * moveSpeed * Time.deltaTime);
-        transform.position = newPosition;
+        Vector3 _movementVector = Vector3.zero;
+        Vector3 _currentInput = Vector3.zero;
+
+        _currentInput.x = x;
+        _currentInput.z = z;
+
+        normalizedInput = _currentInput.normalized;
+
+        if ((Acceleration == 0) || (Deceleration == 0))
+        {
+            lerpedInput = _currentInput;
+        }
+        else
+        {
+            if (normalizedInput.magnitude == 0)
+            {
+                acceleration = Mathf.Lerp(acceleration, 0f, Deceleration * Time.deltaTime);
+                lerpedInput = Vector3.Lerp(lerpedInput, lerpedInput * acceleration, Time.deltaTime * Deceleration);
+            }
+            else
+            {
+                acceleration = Mathf.Lerp(acceleration, 1f, Acceleration * Time.deltaTime);
+                lerpedInput = Vector3.ClampMagnitude(normalizedInput, acceleration);
+            }
+        }
+
+        _movementVector.x = lerpedInput.x;
+        _movementVector.y = 0f;
+        _movementVector.z = lerpedInput.z;
+
+        movementSpeed = MovementSpeed * 1f;
+
+        _movementVector *= movementSpeed;
+
+        if (_movementVector.magnitude > MovementSpeed)
+        {
+            _movementVector = Vector3.ClampMagnitude(_movementVector, MovementSpeed);
+        }
+
+        Vector3 newMovement = rigidBody.position + _movementVector * Time.fixedDeltaTime;
+        rigidBody.MovePosition(newMovement);
 
         ServerSend.PlayerPosition(this);
     }
