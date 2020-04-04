@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using SkillSystem;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -25,7 +27,13 @@ public class Player : MonoBehaviour
     private float acceleration;
     private float movementSpeed;
 
+    //BORRAR THIS SHIT
+    public SkillDefinition currentSkill;
+
     private float[] inputs;
+
+    //SKILLS
+    public Dictionary<string, SkillDefinition> Skills;
 
     public void Initialize(int _id, string _username)
     {
@@ -37,6 +45,10 @@ public class Player : MonoBehaviour
 
         Acceleration = 10f;
         Deceleration = 10f;
+
+        Skills = new Dictionary<string, SkillDefinition>();
+
+        Skills.Add(currentSkill.Name, currentSkill);
     }
 
     /// <summary>Processes player input and moves the player.</summary>
@@ -110,15 +122,17 @@ public class Player : MonoBehaviour
         inputs = _inputs;
     }
 
-    public void Shoot(Vector3 _viewDirection)
+    public void Shoot(Vector3 _facingDirection, string _skillId)
     {
-        if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
+        //TODO USE FACING DIRECTION TO GET ROTATION FOR SKILL
+        string uniqueKey = string.Empty;
+
+        if (Skills.ContainsKey(_skillId))
         {
-            if (_hit.collider.CompareTag("Player"))
-            {
-                _hit.collider.GetComponent<Player>().TakeDamage(50f);
-            }
+            Skills[_skillId].Cast(Skills[_skillId], id, shootOrigin.position, Quaternion.identity, out uniqueKey);
         }
+
+        ServerSend.SkillCasted(id, uniqueKey );
     }
 
     public void TakeDamage(float _damage)

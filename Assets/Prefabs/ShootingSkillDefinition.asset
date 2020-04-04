@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b31174d4c255049bce0e8030cd35e5, type: 3}
+  m_Name: ShootingSkillDefinition
+  m_EditorClassIdentifier: 
+  Name: ShootingSkill
+  Prefab: {fileID: 6720964473381222823, guid: cb78fda91d790984789a28318e8f0695, type: 3}
+  Behavior: {fileID: 0}
+  Damage: 1
+  ProjectilePrefab: {fileID: 957494902942904707, guid: b59ebcd04bdced544ae8112a44a02333,
+    type: 3}
+  Speed: 0
+  DestroyAfterTime: 2
+  DestroyOnCollision: 1

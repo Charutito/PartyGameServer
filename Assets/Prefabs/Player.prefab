@@ -128,15 +128,14 @@ MonoBehaviour:
   id: 0
   username: 
   shootOrigin: {fileID: 4375789778787327676}
-  moveSpeed: 5
   health: 0
   maxHealth: 100
   itemAmount: 0
   maxItemAmount: 3
   respawnTime: 5
+  MovementSpeed: 6
   rigidBody: {fileID: -2910589542805492270}
-  Acceleration: 10
-  Deceleration: 10
+  currentSkill: {fileID: 11400000, guid: 73027d39214b90e43b6cf9fd8701bbdc, type: 2}
 --- !u!54 &-2910589542805492270
 Rigidbody:
   m_ObjectHideFlags: 0
