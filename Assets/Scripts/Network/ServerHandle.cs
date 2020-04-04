@@ -32,7 +32,8 @@ public class ServerHandle
     public static void PlayerShoot(int _fromClient, Packet _packet)
     {
         Vector3 _shootDirection = _packet.ReadVector3();
+        string _skillId = _packet.ReadString();
 
-        Server.clients[_fromClient].player.Shoot(_shootDirection);
+        Server.clients[_fromClient].player.Shoot(_shootDirection, _skillId);
     }
 }

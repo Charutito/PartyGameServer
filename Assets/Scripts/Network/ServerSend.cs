@@ -204,5 +204,27 @@ public class ServerSend
             SendTCPDataToAll(_packet);
         }
     }
+
+    public static void SkillCasted(int _byPlayer, string _uniqueKey)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.skillCasted))
+        {
+            _packet.Write(_byPlayer);
+            _packet.Write(_uniqueKey);
+
+            SendUDPDataToAll(_packet);
+        }
+    }
+
+    public static void SkillPosition(string _uniqueId, Vector3 _position)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.skillPosition))
+        {
+            _packet.Write(_uniqueId);
+            _packet.Write(_position);
+
+            SendUDPDataToAll(_packet);
+        }
+    }
     #endregion
 }
