@@ -235,16 +235,16 @@ public class Client
                 ServerSend.SpawnPlayer(_client.id, player);
             }
         }
-
-        foreach (ItemSpawner _itemSpawner in ItemSpawner.spawners.Values)
-        {
-            ServerSend.CreateItemSpawner(id, _itemSpawner.spawnerId, _itemSpawner.transform.position, _itemSpawner.hasItem);
-        }
     }
 
     public void SendMapArenaToClient()
     {
         ServerSend.LoadArena(id, Server.MapArenaNumber);
+    }
+
+    public void SendPickupableSkillsOnMapToClient()
+    {
+        SkillSpawnerManager.SpawnExistingSkills(id);
     }
 
     /// <summary>Disconnects the client and stops all network traffic.</summary>

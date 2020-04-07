@@ -16,6 +16,7 @@ public class ServerHandle
         }
         Server.clients[_fromClient].SendIntoGame(_username);
         Server.clients[_fromClient].SendMapArenaToClient();
+        Server.clients[_fromClient].SendPickupableSkillsOnMapToClient();
     }
 
     public static void PlayerMovement(int _fromClient, Packet _packet)
