@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836324251903321801}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children: []
   m_Father: {fileID: 6574823444410646575}
@@ -39,7 +39,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836324251903321801}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1625433066320220041
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 6574823444410646575}
   - component: {fileID: 1920120271202843960}
   - component: {fileID: -2910589542805492270}
+  - component: {fileID: 6354222898695075827}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -135,7 +136,7 @@ MonoBehaviour:
   respawnTime: 5
   MovementSpeed: 6
   rigidBody: {fileID: -2910589542805492270}
-  currentSkill: {fileID: 11400000, guid: 73027d39214b90e43b6cf9fd8701bbdc, type: 2}
+  currentSkill: {fileID: 11400000, guid: f7700596029b3c24eac389aa9f876a9f, type: 2}
 --- !u!54 &-2910589542805492270
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,6 +153,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6354222898695075827
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4187005777591049097}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5842331344950954625
 GameObject:
   m_ObjectHideFlags: 0

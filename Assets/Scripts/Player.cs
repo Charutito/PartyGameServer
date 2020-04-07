@@ -27,13 +27,9 @@ public class Player : MonoBehaviour
     private float acceleration;
     private float movementSpeed;
 
-    //BORRAR THIS SHIT
     public SkillDefinition currentSkill;
 
     private float[] inputs;
-
-    //SKILLS
-    public Dictionary<string, SkillDefinition> Skills;
 
     public void Initialize(int _id, string _username)
     {
@@ -45,10 +41,6 @@ public class Player : MonoBehaviour
 
         Acceleration = 10f;
         Deceleration = 10f;
-
-        Skills = new Dictionary<string, SkillDefinition>();
-
-        Skills.Add(currentSkill.Name, currentSkill);
     }
 
     /// <summary>Processes player input and moves the player.</summary>
@@ -127,12 +119,8 @@ public class Player : MonoBehaviour
         //TODO USE FACING DIRECTION TO GET ROTATION FOR SKILL
         string uniqueKey = string.Empty;
 
-        if (Skills.ContainsKey(_skillId))
-        {
-            Skills[_skillId].Cast(Skills[_skillId], id, shootOrigin.position, Quaternion.identity, out uniqueKey);
-        }
-
-        ServerSend.SkillCasted(id, uniqueKey );
+        currentSkill.Cast(currentSkill, id, shootOrigin.position, Quaternion.identity, out uniqueKey);
+        ServerSend.SkillCasted(id, uniqueKey);
     }
 
     public void TakeDamage(float _damage)

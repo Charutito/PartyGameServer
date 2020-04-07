@@ -172,34 +172,34 @@ public class ServerSend
         }
     }
 
-    public static void CreateItemSpawner(int _toClient, int _spawnerId, Vector3 _spawnerPosition, bool _hasItem)
+    public static void SkillSpawned(string _skillId, Vector3 _spawnerPosition)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.createItemSpawner))
+        using (Packet _packet = new Packet((int)ServerPackets.skillSpawned))
         {
-            _packet.Write(_spawnerId);
+            _packet.Write(_skillId);
             _packet.Write(_spawnerPosition);
-            _packet.Write(_hasItem);
-
-            SendTCPData(_toClient, _packet);
-        }
-    }
-
-    public static void ItemSpawned(int _spawnerId)
-    {
-        using (Packet _packet = new Packet((int)ServerPackets.itemSpawned))
-        {
-            _packet.Write(_spawnerId);
 
             SendTCPDataToAll(_packet);
         }
     }
 
-    public static void ItemPickedUp(int _spawnerId, int _byPlayer)
+    public static void SkillSpawned(int _playerId, string _skillId, Vector3 _spawnerPosition)
     {
-        using (Packet _packet = new Packet((int)ServerPackets.itemPickedUp))
+        using (Packet _packet = new Packet((int)ServerPackets.skillSpawned))
         {
-            _packet.Write(_spawnerId);
-            _packet.Write(_byPlayer);
+            _packet.Write(_skillId);
+            _packet.Write(_spawnerPosition);
+
+            SendTCPData(_playerId, _packet);
+        }
+    }
+
+    public static void SkillPickedUp(string _skillId, int _playerId)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.skillPickedup))
+        {
+            _packet.Write(_skillId);
+            _packet.Write(_playerId);
 
             SendTCPDataToAll(_packet);
         }

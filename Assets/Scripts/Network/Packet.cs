@@ -13,11 +13,10 @@ public enum ServerPackets
     playerDisconnected,
     playerHealth,
     playerRespawned,
-    createItemSpawner,
-    itemSpawned,
-    itemPickedUp,
     skillCasted,
-    skillPosition
+    skillPosition,
+    skillSpawned,
+    skillPickedup
 }
 
 /// <summary>Sent from client to server.</summary>
