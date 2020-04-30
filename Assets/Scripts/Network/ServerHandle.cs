@@ -37,4 +37,10 @@ public class ServerHandle
 
         Server.clients[_fromClient].player.Shoot(_shootDirection, _skillId);
     }
+
+    public static void PlayerSkillRotation(int _fromClient, Packet _packet)
+    {
+        Vector3 _worldPosition = _packet.ReadVector3();
+        Server.clients[_fromClient].player.SetSkillRotation(_worldPosition);
+    }
 }
