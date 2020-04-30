@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private float movementSpeed;
 
     public SkillDefinition currentSkill;
+    public GameObject skillPivot;
 
     private float[] inputs;
 
@@ -121,6 +122,15 @@ public class Player : MonoBehaviour
 
         currentSkill.Cast(currentSkill, id, shootOrigin.position, Quaternion.identity, out uniqueKey);
         ServerSend.SkillCasted(id, uniqueKey);
+    }
+
+    public void SetSkillRotation(Vector3 _worldPosition)
+    {
+        Vector3 direction = _worldPosition - transform.position;
+        direction.y = 0f;
+        skillPivot.transform.right = direction;
+
+        ServerSend.PlayerSkillRotation(id, skillPivot.transform.right);
     }
 
     public void TakeDamage(float _damage)

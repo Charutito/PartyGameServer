@@ -137,6 +137,7 @@ MonoBehaviour:
   MovementSpeed: 6
   rigidBody: {fileID: -2910589542805492270}
   currentSkill: {fileID: 11400000, guid: f7700596029b3c24eac389aa9f876a9f, type: 2}
+  skillPivot: {fileID: 5842331344950954625}
 --- !u!54 &-2910589542805492270
 Rigidbody:
   m_ObjectHideFlags: 0

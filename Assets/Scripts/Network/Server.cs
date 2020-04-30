@@ -29,7 +29,7 @@ public class Server
         Debug.Log("Starting server...");
         InitializeServerData();
 
-        IPAddress myIp = IPAddress.Parse("127.0.0.1");
+        IPAddress myIp = IPAddress.Parse("25.86.110.242");
         tcpListener = new TcpListener(myIp, Port);
         tcpListener.Start();
         tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
@@ -132,7 +132,8 @@ public class Server
         {
             { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
             { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
-            { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot }
+            { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot },
+            { (int)ClientPackets.playerSkillRotation, ServerHandle.PlayerSkillRotation }
         };
         Debug.Log("Initialized packets.");
     }

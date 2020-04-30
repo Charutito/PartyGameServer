@@ -226,5 +226,16 @@ public class ServerSend
             SendUDPDataToAll(_packet);
         }
     }
+
+    public static void PlayerSkillRotation(int _id, Vector3 _rotation)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerSkillRotation))
+        {
+            _packet.Write(_id);
+            _packet.Write(_rotation);
+
+            SendUDPDataToAll(_packet);
+        }
+    }
     #endregion
 }

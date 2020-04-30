@@ -16,7 +16,8 @@ public enum ServerPackets
     skillCasted,
     skillPosition,
     skillSpawned,
-    skillPickedup
+    skillPickedup,
+    playerSkillRotation
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -24,7 +25,8 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     playerMovement,
-    playerShoot
+    playerShoot,
+    playerSkillRotation
 }
 
 public class Packet : IDisposable
